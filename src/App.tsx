@@ -2,7 +2,6 @@ import { lazy, Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { DarkModeProvider, useDarkMode } from './contexts/DarkModeContext'
 import { useThemeColors } from './hooks/useThemeColors'
-import { colors } from './styles/colors'
 import Navigation from './components/section/Navigation'
 import About from './components/section/About'
 import { divider } from './assets'
@@ -13,10 +12,12 @@ import './App.css'
 const Contact = lazy(() => import('./pages/Contact'))
 
 // Lazy load below-the-fold components for better initial load
-const Projects = lazy(() => import('./components/section/Projects'))
-const Experience = lazy(() => import('./components/section/Experience'))
 const Skills = lazy(() => import('./components/section/Skills'))
+const Publication = lazy(() => import('./components/section/Publication'))
 const Certifications = lazy(() => import('./components/section/Certifications'))
+const Projects = lazy(() => import('./components/section/Projects'))
+const GraphicDesignPortfolio = lazy(() => import('./components/section/GraphicDesignPortfolio'))
+const Experience = lazy(() => import('./components/section/Experience'))
 const Footer = lazy(() => import('./components/Footer'))
 
 function HomePage() {
@@ -27,33 +28,36 @@ function HomePage() {
     <>
       <About />
       <Suspense fallback={<div className="h-screen flex items-center justify-center">Loading...</div>}>
-        <Projects />
+        <Skills />
       </Suspense>
       <Suspense fallback={<div className="h-64 flex items-center justify-center">Loading...</div>}>
-        <Experience />
+        <Publication />
+      </Suspense>
+      <Suspense fallback={<div className="h-64 flex items-center justify-center">Loading...</div>}>
+        <Certifications />
       </Suspense>
       {/* Divider with gradient transitions */}
       <div className="w-full py-8 relative" style={{
-        background: isDarkMode ? themeColors.background.gradientEnd : colors.white,
+        background: isDarkMode ? themeColors.background.gradientEnd : themeColors.colors.pink[25],
         transition: 'background 0.3s ease-in-out'
       }}>
-        {/* Top gradient overlay to blend with Experience section */}
+        {/* Top gradient overlay to blend with Certifications section */}
         <div
           className="absolute top-0 left-0 right-0 pointer-events-none"
           style={{
             height: '60px',
             background: isDarkMode
               ? `linear-gradient(180deg, ${themeColors.background.gradientEnd} 0%, transparent 100%)`
-              : `linear-gradient(180deg, ${colors.white} 0%, transparent 100%)`,
+              : `linear-gradient(180deg, ${themeColors.colors.pink[25]} 0%, transparent 100%)`,
             zIndex: 1
           }}
         />
-        {/* Bottom gradient overlay to blend with Skills section */}
-        <div 
+        {/* Bottom gradient overlay to blend with Projects section */}
+        <div
           className="absolute bottom-0 left-0 right-0 pointer-events-none"
           style={{
             height: '200px',
-            background: isDarkMode 
+            background: isDarkMode
               ? `linear-gradient(180deg, transparent 0%, ${themeColors.background.gradientEnd} 100%)`
               : `linear-gradient(180deg, transparent 0%, ${themeColors.colors.pink[25]} 100%)`,
             zIndex: 1
@@ -74,10 +78,13 @@ function HomePage() {
         />
       </div>
       <Suspense fallback={<div className="h-screen flex items-center justify-center">Loading...</div>}>
-        <Skills />
+        <Projects />
       </Suspense>
       <Suspense fallback={<div className="h-64 flex items-center justify-center">Loading...</div>}>
-        <Certifications />
+        <GraphicDesignPortfolio />
+      </Suspense>
+      <Suspense fallback={<div className="h-64 flex items-center justify-center">Loading...</div>}>
+        <Experience />
       </Suspense>
     </>
   )

@@ -42,7 +42,7 @@ const {
     ViteLight: Vite,
 } = techStackIcons;
 
-type ImageItem = string | { src: string; alt?: string };
+type ImageItem = string | { src: string; alt?: string; category?: string; accentColor?: string };
 
 type DomeGalleryProps = {
     images?: ImageItem[];
@@ -67,6 +67,8 @@ type DomeGalleryProps = {
 type ItemDef = {
     src: string;
     alt: string;
+    category?: string;
+    accentColor?: string;
     x: number;
     y: number;
     sizeX: number;
@@ -152,9 +154,9 @@ function buildItems(pool: ImageItem[], seg: number): ItemDef[] {
 
     const normalizedImages = pool.map((image) => {
         if (typeof image === "string") {
-            return { src: image, alt: "" };
+            return { src: image, alt: "", category: undefined as string | undefined, accentColor: undefined as string | undefined };
         }
-        return { src: image.src || "", alt: image.alt || "" };
+        return { src: image.src || "", alt: image.alt || "", category: image.category, accentColor: image.accentColor };
     });
 
     const usedImages = Array.from(
@@ -179,6 +181,8 @@ function buildItems(pool: ImageItem[], seg: number): ItemDef[] {
         ...c,
         src: usedImages[i].src,
         alt: usedImages[i].alt,
+        category: usedImages[i].category,
+        accentColor: usedImages[i].accentColor,
     }));
 }
 
@@ -721,11 +725,28 @@ export default function DomeGallery({
             parent.dataset.alt ||
             (el.querySelector("img") as HTMLImageElement)?.alt ||
             "";
+        const rawCategory = parent.dataset.category || "";
         const img = document.createElement("img");
         img.src = rawSrc;
         img.alt = rawAlt;
         img.style.cssText = `width:100%; height:100%; object-fit:cover; filter:${grayscale ? "grayscale(1)" : "none"};`;
         overlay.appendChild(img);
+        if (rawAlt) {
+            const caption = document.createElement("div");
+            caption.className = "enlarge-caption";
+            caption.style.cssText = `position:absolute; left:0; right:0; bottom:0; padding:10px 14px; text-align:center; color:#fff; background:linear-gradient(180deg, transparent, rgba(0,0,0,.7)); pointer-events:none;`;
+            const nameEl = document.createElement("div");
+            nameEl.style.cssText = `font-size:14px; font-weight:700;`;
+            nameEl.textContent = rawAlt;
+            caption.appendChild(nameEl);
+            if (rawCategory) {
+                const categoryEl = document.createElement("div");
+                categoryEl.style.cssText = `font-size:11px; font-weight:500; opacity:0.85; margin-top:2px;`;
+                categoryEl.textContent = rawCategory;
+                caption.appendChild(categoryEl);
+            }
+            overlay.appendChild(caption);
+        }
         viewerRef.current!.appendChild(overlay);
         const tx0 = tileR.left - frameR.left;
         const ty0 = tileR.top - frameR.top;
@@ -907,6 +928,7 @@ export default function DomeGallery({
                                     className="sphere-item absolute m-auto"
                                     data-src={it.src}
                                     data-alt={it.alt}
+                                    data-category={it.category || ""}
                                     data-offset-x={it.x}
                                     data-offset-y={it.y}
                                     data-size-x={it.sizeX}
@@ -921,6 +943,10 @@ export default function DomeGallery({
                                             bottom: "-999px",
                                             left: "-999px",
                                             right: "-999px",
+                                            // Fills the full tile cell (which tiles edge-to-edge with its
+                                            // neighbours), so same-category tiles blend into one continuous
+                                            // pastel zone instead of each tile getting its own isolated chip.
+                                            backgroundColor: it.accentColor ? `${it.accentColor}35` : undefined,
                                         } as React.CSSProperties
                                     }
                                 >
@@ -943,6 +969,7 @@ export default function DomeGallery({
                                             inset: "10px",
                                             borderRadius: `var(--tile-radius, ${imageBorderRadius})`,
                                             backfaceVisibility: "hidden",
+                                            backgroundColor: it.accentColor ? "transparent" : undefined,
                                         }}
                                     >
                                         <img

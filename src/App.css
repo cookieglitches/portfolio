@@ -215,7 +215,6 @@ body {
   margin: 0;
   font-weight: normal;
   letter-spacing: 2px;
-  filter: drop-shadow(0 2px 4px rgba(200, 139, 149, 0.3));
   flex-shrink: 0;
   line-height: 1;
   padding-top: 0.2rem;
@@ -495,6 +494,36 @@ body {
   }
 }
 
+/* Skill Garden */
+@keyframes sway {
+  0%, 100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes bloomIn {
+  from {
+    transform: scale(0.2) translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes flutter {
+  0%, 100% {
+    transform: translateY(0) rotate(-4deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(4deg);
+  }
+}
+
 .draggable-star:hover {
   filter: brightness(1.2);
 }
@@ -625,6 +654,27 @@ body {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes frameFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dpadPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 60, 120, 0.95), 0 0 14px 5px rgba(255, 90, 140, 0.9);
+  }
+  70% {
+    box-shadow: 0 0 0 22px rgba(255, 60, 120, 0), 0 0 18px 8px rgba(255, 90, 140, 1);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 60, 120, 0), 0 0 14px 5px rgba(255, 90, 140, 0.9);
   }
 }
 

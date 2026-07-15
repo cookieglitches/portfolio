@@ -44,8 +44,8 @@ const Contact = () => {
         </header>
 
         {/* Contact Cards */}
-        <section className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto" aria-label="Contact methods">
-          
+        <section className={`grid gap-6 max-w-4xl mx-auto ${socialLinks.github ? 'md:grid-cols-3' : 'md:grid-cols-2'}`} aria-label="Contact methods">
+
           {/* Email Card */}
           <article className="rounded-lg shadow-lg p-6 text-center hover:scale-105 transition-transform duration-300" style={{ backgroundColor: themeColors.card.background }} aria-labelledby="email-heading">
             <div className="flex justify-center mb-4">
@@ -67,26 +67,28 @@ const Contact = () => {
           </article>
 
           {/* GitHub Card */}
-          <article className="rounded-lg shadow-lg p-6 text-center hover:scale-105 transition-transform duration-300" style={{ backgroundColor: themeColors.card.background }} aria-labelledby="github-heading">
-            <div className="flex justify-center mb-4">
-              <Github className="h-12 w-12" style={{ color: themeColors.colors.pink[500] }} aria-hidden="true" />
-            </div>
-            <h3 id="github-heading" className="text-xl font-semibold mb-2" style={{ color: themeColors.text.primary }}>GitHub</h3>
-            <a 
-              href={socialLinks.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`View GitHub profile at ${socialLinks.display.github} (opens in new tab)`}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors hover:opacity-80"
-              style={{
-                backgroundColor: themeColors.interactive.primary,
-                color: themeColors.text.pink
-              }}
-            >
-              View Profile
-            </a>
-            <p className="text-xs mt-3" style={{ color: themeColors.text.tertiary }}>{socialLinks.display.github}</p>
-          </article>
+          {socialLinks.github && (
+            <article className="rounded-lg shadow-lg p-6 text-center hover:scale-105 transition-transform duration-300" style={{ backgroundColor: themeColors.card.background }} aria-labelledby="github-heading">
+              <div className="flex justify-center mb-4">
+                <Github className="h-12 w-12" style={{ color: themeColors.colors.pink[500] }} aria-hidden="true" />
+              </div>
+              <h3 id="github-heading" className="text-xl font-semibold mb-2" style={{ color: themeColors.text.primary }}>GitHub</h3>
+              <a
+                href={socialLinks.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`View GitHub profile at ${socialLinks.display.github} (opens in new tab)`}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors hover:opacity-80"
+                style={{
+                  backgroundColor: themeColors.interactive.primary,
+                  color: themeColors.text.pink
+                }}
+              >
+                View Profile
+              </a>
+              <p className="text-xs mt-3" style={{ color: themeColors.text.tertiary }}>{socialLinks.display.github}</p>
+            </article>
+          )}
 
           {/* LinkedIn Card */}
           <article className="rounded-lg shadow-lg p-6 text-center hover:scale-105 transition-transform duration-300" style={{ backgroundColor: themeColors.card.background }} aria-labelledby="linkedin-heading">

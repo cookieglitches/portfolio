@@ -16,9 +16,11 @@ const Navigation = () => {
 
   const tabs = useMemo(() => [
     { id: 'about', label: 'About' },
+    { id: 'skills', label: 'Skills' },
+    { id: 'publication', label: 'Publications' },
     { id: 'projects', label: 'Projects' },
-    { id: 'experience', label: 'Experience' },
-    { id: 'skills', label: 'Skills' }
+    { id: 'design', label: 'Design' },
+    { id: 'experience', label: 'Experience' }
   ], []);
 
   useEffect(() => {
@@ -114,8 +116,8 @@ const Navigation = () => {
             WebkitTextFillColor: themeColors.colors.pink[500]
           }}
           onClick={() => window.location.href = '/'}
-          aria-label="Your Name - Go to homepage">
-          Your Name
+          aria-label="Kobiga Seralathan - Go to homepage">
+          Kobiga Seralathan
         </button>
         
         {/* Desktop Navigation */}
