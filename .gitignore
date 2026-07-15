@@ -285,6 +285,7 @@ ENV/
 *.mov
 *.avi
 *.mkv
+!public/projects/*.mp4
 *.mp3
 *.wav
 
