@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 import { DarkModeProvider, useDarkMode } from './contexts/DarkModeContext'
 import { useThemeColors } from './hooks/useThemeColors'
 import Navigation from './components/section/Navigation'
@@ -120,6 +121,7 @@ function App() {
   return (
     <DarkModeProvider>
       <AppContent />
+      <Analytics />
     </DarkModeProvider>
   )
 }
