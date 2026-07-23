@@ -388,7 +388,7 @@ const Experience = () => {
           title: "Biological Research Technician (Work Study)",
           period: "May 2024 - Apr 2025",
           description: [
-            "Dissected goldfish and freshwater goby to extract otoliths and analyze gut contents for ecological research.",
+            "Dissected goldfish and freshwater goby to extract otoliths and organs, maintained accurate conservation data records using GBIF data entry protocols.",
           ]
         }
       ]
@@ -402,7 +402,7 @@ const Experience = () => {
           title: "Volunteer & Keenan Summer Research Student",
           period: "Oct 2023 - Aug 2024",
           description: [
-            "Reviewed and coded 100+ medical charts for injury and poisoning data to CHIRPP data quality standards.",
+            "Reviewed 100+ medical charts for injury and poisoning data to CHIRPP data quality standards.",
           ]
         }
       ]
